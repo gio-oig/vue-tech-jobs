@@ -25,7 +25,7 @@ export default {
 <style>
 @media (max-width: 1000px) {
 	.burger {
-		fill: red;
+		fill: #7b7ce6;
 	}
 }
 </style>

@@ -1,6 +1,7 @@
 <template>
 	<header>
 		<h1 class="logo">Main</h1>
+		<mob-menu :isActive="mobMenuDropdown" />
 		<nav>
 			<nav-link name="jobs" background="#EDE3FF">
 				<template #icon>
@@ -15,7 +16,7 @@
 		</nav>
 		<div class="gap"></div>
 		<div class="profile-conainer">
-			<button @click="toggleProfileDroppdown()">
+			<button @click="toggleProfileDropdown()">
 				<div class="menu-profile-container">
 					<div class="menu-icon-container" style="background-color:#EFF3FF">
 						<div class="menu-icon-wrapper">
@@ -26,7 +27,7 @@
 					</div>
 				</div>
 				<div class="username">
-					Unknown
+					giorgi
 					<dropdown-svg />
 				</div>
 			</button>
@@ -40,7 +41,7 @@
 			</dropdown>
 		</div>
 		<div class="lang-container">
-			<button class="menu-lang-container" @click="toggleLangDroppdown()">
+			<button class="menu-lang-container" @click="toggleLangDropdown()">
 				<span>EN</span>
 				<dropdown-svg />
 			</button>
@@ -53,14 +54,17 @@
 				</template>
 			</dropdown>
 		</div>
-		<div class="toggle-button">
+		<div class="toggle-button" @click="toggleMobDropDown()">
 			<burger-menu-svg />
 		</div>
 	</header>
+	<bottom-menu />
 </template>
 
 <script>
+import BottomMenu from './BottomMenu.vue';
 import Dropdown from './Dropdown.vue';
+import MobMenu from './MobMenu.vue';
 import NavLink from './NavLink.vue';
 import BurgerMenuSvg from './svgs/BurgerMenuSvg.vue';
 import CompaniesSvg from './svgs/companiesSvg.vue';
@@ -77,9 +81,12 @@ export default {
 		BurgerMenuSvg,
 		NavLink,
 		Dropdown,
+		BottomMenu,
+		MobMenu,
 	},
 	data() {
 		return {
+			mobMenuDropdown: false,
 			profileDropdown: false,
 			langDropdown: false,
 		};
@@ -88,8 +95,12 @@ export default {
 		toggleProfileDroppdown() {
 			this.profileDropdown = !this.profileDropdown;
 		},
-		toggleLangDroppdown() {
+		toggleLangDropdown() {
 			this.langDropdown = !this.langDropdown;
+		},
+		toggleMobDropDown() {
+			this.mobMenuDropdown = !this.mobMenuDropdown;
+			console.log(this.mobMenuDropdown);
 		},
 	},
 };
@@ -172,6 +183,11 @@ nav {
 	outline: none;
 }
 
-/* .toggle-button {
-} */
+@media (max-width: 1000px) {
+	.profile-conainer,
+	.lang-container,
+	nav {
+		display: none;
+	}
+}
 </style>

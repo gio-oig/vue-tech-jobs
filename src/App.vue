@@ -1,13 +1,26 @@
 <template>
 	<navigation-bar />
+	<filter-container />
 </template>
 
 <script>
 import NavigationBar from './components/NavigationBar.vue';
+import { mapState } from 'vuex';
+import FilterContainer from './components/FilterContainer.vue';
 export default {
 	name: 'App',
 	components: {
 		NavigationBar,
+		FilterContainer,
+	},
+	methods: {
+		increment() {
+			this.$store.commit('increment');
+			console.log(this.$store.state.count);
+		},
+	},
+	computed: {
+		...mapState({ count: 'count' }),
 	},
 };
 </script>
