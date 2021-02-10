@@ -1,18 +1,15 @@
 <template>
 	<navigation-bar />
-	<filter-container />
+	<router-view />
 </template>
 
 <script>
-import NavigationBar from './components/NavigationBar.vue';
 import { mapState } from 'vuex';
-import FilterContainer from './components/FilterContainer.vue';
+import NavigationBar from './components/NavigationBar.vue';
+
 export default {
+	components: { NavigationBar },
 	name: 'App',
-	components: {
-		NavigationBar,
-		FilterContainer,
-	},
 	methods: {
 		increment() {
 			this.$store.commit('increment');

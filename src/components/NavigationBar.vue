@@ -1,21 +1,21 @@
 <template>
 	<header>
-		<h1 class="logo">Main</h1>
+		<router-link to="/" class="logo">Main</router-link>
 		<mob-menu :isActive="mobMenuDropdown" />
 		<nav>
-			<nav-link name="jobs" background="#EDE3FF">
+			<nav-link name="Jobs" background="#EDE3FF">
 				<template #icon>
 					<jobs-svg />
 				</template>
 			</nav-link>
-			<nav-link name="companies" background="#D5F7FF">
+			<nav-link name="Companies" background="#D5F7FF">
 				<template #icon>
 					<companies-svg />
 				</template>
 			</nav-link>
 		</nav>
 		<div class="gap"></div>
-		<div class="profile-conainer">
+		<div v-if="user" class="profile-conainer">
 			<button @click="toggleProfileDropdown()">
 				<div class="menu-profile-container">
 					<div class="menu-icon-container" style="background-color:#EFF3FF">
@@ -40,6 +40,10 @@
 				</template>
 			</dropdown>
 		</div>
+		<div v-if="!user" class="auth">
+			<custom-button path="/login" txt="login" :invert="false" />
+			<custom-button path="/register" txt="register" :invert="true" />
+		</div>
 		<div class="lang-container">
 			<button class="menu-lang-container" @click="toggleLangDropdown()">
 				<span>EN</span>
@@ -58,7 +62,7 @@
 			<burger-menu-svg />
 		</div>
 	</header>
-	<bottom-menu />
+	<bottom-menu v-if="user" />
 </template>
 
 <script>
@@ -71,6 +75,8 @@ import CompaniesSvg from './svgs/companiesSvg.vue';
 import DropdownSvg from './svgs/DropdownSvg.vue';
 import JobsSvg from './svgs/JobsSvg.vue';
 import ProfileSvg from './svgs/ProfileSvg.vue';
+import { mapState } from 'vuex';
+import CustomButton from './shared/CustomButton';
 
 export default {
 	components: {
@@ -83,6 +89,7 @@ export default {
 		Dropdown,
 		BottomMenu,
 		MobMenu,
+		CustomButton,
 	},
 	data() {
 		return {
@@ -102,6 +109,9 @@ export default {
 			this.mobMenuDropdown = !this.mobMenuDropdown;
 			console.log(this.mobMenuDropdown);
 		},
+	},
+	computed: {
+		...mapState(['user']),
 	},
 };
 </script>
@@ -123,6 +133,9 @@ header {
 
 .logo {
 	margin-right: 4rem;
+	font-size: 2.5rem;
+	font-weight: 500;
+	text-decoration: none;
 }
 
 nav {
@@ -186,7 +199,8 @@ nav {
 @media (max-width: 1000px) {
 	.profile-conainer,
 	.lang-container,
-	nav {
+	nav,
+	.auth {
 		display: none;
 	}
 }

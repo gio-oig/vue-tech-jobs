@@ -21,4 +21,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+a:hover {
+	font-weight: 600;
+}
+</style>
