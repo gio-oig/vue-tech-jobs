@@ -1,12 +1,10 @@
 <template>
 	<svg
-		class="fill-0-2-50"
 		width="24"
 		height="24"
 		viewBox="0 0 24 24"
-		fill="none"
+		:fill="color"
 		xmlns="http://www.w3.org/2000/svg"
-		style="fill: rgb(49, 170, 225);"
 	>
 		<path
 			fill-rule="evenodd"
@@ -19,6 +17,14 @@
 <script>
 export default {
 	name: 'ComaniesSvg',
+	props: {
+		fill: String,
+	},
+	data() {
+		return {
+			color: this.fill ? this.fill : '#171725',
+		};
+	},
 };
 </script>
 

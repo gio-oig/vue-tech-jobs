@@ -15,7 +15,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 input {
 	width: 100%;
 	padding: 1.5rem 1rem;

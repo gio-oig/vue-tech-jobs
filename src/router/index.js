@@ -8,6 +8,9 @@ const routes = [
 		path: '/',
 		component: Home,
 		name: 'home',
+		meta: {
+			isSecured: true,
+		},
 	},
 	{
 		path: '/register',
@@ -25,5 +28,17 @@ const router = createRouter({
 	history: createWebHistory(),
 	routes,
 });
+
+// router.beforeEach((to, from, next) => {
+// 	if (to.matched.some((record) => record.meta.isSecured)) {
+// 		if (localStorage.getItem('Auth')) {
+// 			next();
+// 		} else {
+// 			next({ name: 'login' });
+// 		}
+// 	} else {
+// 		next();
+// 	}
+// });
 
 export default router;

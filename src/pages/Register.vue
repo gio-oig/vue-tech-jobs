@@ -1,19 +1,28 @@
 <template>
 	<div class="mob-margin">
 		<h1>Register</h1>
-		<form>
+		<form @submit.prevent="register()">
 			<div>
 				<div class="form-group">
 					<label for="">Name</label>
-					<custom-input type="text" v-model:value="name" />
+					<custom-input type="text" v-model:value="form.name" />
+					<span v-if="errors.name">
+						{{ errors.name[0] }}
+					</span>
 				</div>
 				<div class="form-group">
 					<label for="">Email</label>
-					<custom-input type="email" v-model:value="email" />
+					<custom-input type="email" v-model:value="form.email" />
+					<span v-if="errors.email">
+						{{ errors.email[0] }}
+					</span>
 				</div>
 				<div class="form-group">
 					<label for="">Password</label>
-					<custom-input type="password" v-model:value="password" />
+					<custom-input type="password" v-model:value="form.password" />
+					<span v-if="errors.password">
+						{{ errors.password[0] }}
+					</span>
 				</div>
 				<div class="button-section">
 					<custom-button :noLink="true" txt="register" :invert="true" />
@@ -26,20 +35,40 @@
 <script>
 import CustomButton from '../components/shared/CustomButton.vue';
 import CustomInput from '../components/shared/CustomInput.vue';
+import user from '../api/user';
+
 export default {
 	name: 'Register',
 	components: { CustomInput, CustomButton },
 	data() {
 		return {
-			name: '',
-			email: '',
-			password: '',
+			form: {
+				name: '',
+				email: '',
+				password: '',
+			},
+			errors: {},
 		};
+	},
+	methods: {
+		register() {
+			user
+				.register(this.form)
+				.then(() => {
+					// console.log(res);
+					this.$router.push({ name: 'login' });
+				})
+				.catch((error) => {
+					if (error.response.status === 422) {
+						this.errors = { ...error.response.data.errors };
+					}
+				});
+		},
 	},
 };
 </script>
 
-<style>
+<style scoped>
 .mob-margin {
 	margin: 30px 10px 0 10px;
 	display: flex;

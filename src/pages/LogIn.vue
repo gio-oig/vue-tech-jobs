@@ -1,15 +1,21 @@
 <template>
 	<div class="mob-margin">
 		<h1>Register</h1>
-		<form>
+		<form @submit.prevent="login()">
 			<div>
 				<div class="form-group">
 					<label for="">Email</label>
-					<custom-input type="email" v-model:value="email" />
+					<custom-input type="email" v-model:value="form.email" />
+					<span v-if="errors.email">
+						{{ errors.email[0] }}
+					</span>
 				</div>
 				<div class="form-group">
 					<label for="">Password</label>
-					<custom-input type="password" v-model:value="password" />
+					<custom-input type="password" v-model:value="form.password" />
+					<span v-if="errors.password">
+						{{ errors.password[0] }}
+					</span>
 				</div>
 				<div class="button-section">
 					<router-link to="/register">Not Registered?</router-link>
@@ -23,19 +29,49 @@
 <script>
 import CustomButton from '../components/shared/CustomButton.vue';
 import CustomInput from '../components/shared/CustomInput.vue';
+// import user from '../api/user.js';
+import { mapActions } from 'vuex';
 export default {
 	components: { CustomInput, CustomButton },
 	name: 'LogIn',
 	data() {
 		return {
-			email: '',
-			password: '',
+			form: { email: '', password: '' },
+			errors: [],
 		};
+	},
+	methods: {
+		...mapActions(['loginUser']),
+		login() {
+			this.loginUser(this.form)
+				.then((res) => {
+					console.log(res);
+					this.$router.push({ name: 'home' });
+				})
+				.catch((err) => {
+					if (err.response.status === 422) {
+						this.errors = { ...err.response.data.errors };
+					}
+				});
+			// user
+			// 	.login(this.form)
+			// 	.then((res) => {
+			// 		localStorage.setItem('Auth', 'true');
+			// 		this.setUser(res.data.user);
+			// 		console.log(res);
+			// 		this.$router.push({ name: 'home' });
+			// 	})
+			// 	.catch((error) => {
+			// 		if (error.response.status === 422) {
+			// 			this.errors = { ...error.response.data.errors };
+			// 		}
+			// 	});
+		},
 	},
 };
 </script>
 
-<style>
+<style scoped>
 .mob-margin {
 	margin: 30px 10px 0 10px;
 	display: flex;

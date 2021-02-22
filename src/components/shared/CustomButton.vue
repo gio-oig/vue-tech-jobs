@@ -38,6 +38,7 @@ export default {
 	border: 2px solid #f1f1f5;
 	border-radius: 1rem;
 	cursor: pointer;
+	outline: none;
 
 	transition: all 0.3s ease 0s;
 }
@@ -47,4 +48,8 @@ export default {
 	background-color: #7b7ce6;
 	border: none;
 }
+/* 
+@media (max-width: 1000px) {
+	.btn-link
+} */
 </style>

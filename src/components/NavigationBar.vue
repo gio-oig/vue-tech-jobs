@@ -1,7 +1,11 @@
 <template>
 	<header>
 		<router-link to="/" class="logo">Main</router-link>
-		<mob-menu :isActive="mobMenuDropdown" />
+		<mob-menu
+			:isActive="mobMenuDropdown"
+			@logout="logoutUser()"
+			@close="toggleMobDropDown()"
+		/>
 		<nav>
 			<nav-link name="Jobs" background="#EDE3FF">
 				<template #icon>
@@ -10,7 +14,7 @@
 			</nav-link>
 			<nav-link name="Companies" background="#D5F7FF">
 				<template #icon>
-					<companies-svg />
+					<companies-svg fill="rgb(49, 170, 225)" />
 				</template>
 			</nav-link>
 		</nav>
@@ -27,7 +31,7 @@
 					</div>
 				</div>
 				<div class="username">
-					giorgi
+					{{ user.name }}
 					<dropdown-svg />
 				</div>
 			</button>
@@ -35,7 +39,7 @@
 				<template #default>
 					<ul>
 						<li><a href="#">profile</a></li>
-						<li><a href="#">logout</a></li>
+						<li><a href="#" @click="logout()">logout</a></li>
 					</ul>
 				</template>
 			</dropdown>
@@ -75,9 +79,9 @@ import CompaniesSvg from './svgs/companiesSvg.vue';
 import DropdownSvg from './svgs/DropdownSvg.vue';
 import JobsSvg from './svgs/JobsSvg.vue';
 import ProfileSvg from './svgs/ProfileSvg.vue';
-import { mapState } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 import CustomButton from './shared/CustomButton';
-
+// import user from '../api/user';
 export default {
 	components: {
 		JobsSvg,
@@ -99,7 +103,7 @@ export default {
 		};
 	},
 	methods: {
-		toggleProfileDroppdown() {
+		toggleProfileDropdown() {
 			this.profileDropdown = !this.profileDropdown;
 		},
 		toggleLangDropdown() {
@@ -107,8 +111,11 @@ export default {
 		},
 		toggleMobDropDown() {
 			this.mobMenuDropdown = !this.mobMenuDropdown;
-			console.log(this.mobMenuDropdown);
 		},
+		logout() {
+			this.logoutUser();
+		},
+		...mapActions(['logoutUser']),
 	},
 	computed: {
 		...mapState(['user']),
@@ -129,6 +136,7 @@ header {
 	z-index: 2;
 	position: sticky;
 	box-shadow: 5px 5px 60px 10px rgb(240 243 251 / 70%);
+	background: #fff;
 }
 
 .logo {
