@@ -40,4 +40,9 @@ html {
 	margin: auto;
 	max-width: 1300px;
 }
+
+/* @font-face {
+  font-family:'markpro';
+  src: url(./assets/fonts/MARKPRO.woff);
+} */
 </style>

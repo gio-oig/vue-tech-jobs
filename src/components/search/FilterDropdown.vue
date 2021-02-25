@@ -143,7 +143,13 @@ export default {
 }
 
 @media (max-width: 500px) {
+	.dropbox {
+		width: 100%;
+		margin: 5px 0;
+	}
+
 	.dropbox button {
+		width: 100%;
 		border: 2px solid #7b7ce6;
 		/* box-shadow: 0px 5px 40px 10px rgb(240 243 251 / 70%); */
 	}

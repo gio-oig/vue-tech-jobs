@@ -1,18 +1,18 @@
 <template>
 	<filter-container />
-	<job-listing />
+	<job-list />
 </template>
 
 <script>
 import FilterContainer from '../components/FilterContainer.vue';
-import JobListing from '../components/JobListing.vue';
+import JobList from '../components/JobList.vue';
 export default {
-	components: { FilterContainer, JobListing },
+	components: { FilterContainer, JobList },
 };
 </script>
 
 <style>
 body {
-	overflow: hidden;
+	overflow-x: hidden;
 }
 </style>
