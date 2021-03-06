@@ -1,15 +1,15 @@
 <template>
 	<form>
-		<h1 class="title">Find a slave</h1>
+		<h1 class="title">Find A Talent</h1>
 		<div class="filter-btn-container">
-			<filter-button txt="All" />
-			<filter-button txt="Development" />
-			<filter-button txt="Designe" />
-			<filter-button txt="Marketing" />
-			<filter-button txt="Product" />
-			<filter-button txt="DevOps" />
-			<filter-button txt="QA" />
-			<filter-button txt="AI" />
+			<filter-button txt="All" @handleCLick="filterJobs" />
+			<filter-button txt="Development" id="1" @handleCLick="filterJobs" />
+			<filter-button txt="Designe" id="2" @handleCLick="filterJobs" />
+			<filter-button txt="Marketing" id="3" @handleCLick="filterJobs" />
+			<filter-button txt="Product" id="4" @handleCLick="filterJobs" />
+			<filter-button txt="DevOps" id="5" @handleCLick="filterJobs" />
+			<filter-button txt="QA" id="6" @handleCLick="filterJobs" />
+			<filter-button txt="AI" id="7" @handleCLick="filterJobs" />
 		</div>
 		<search />
 	</form>
@@ -21,27 +21,22 @@ import Search from './search/Search';
 import FilterButton from './search/FilterButton';
 export default {
 	components: { FilterButton, Search },
-	data() {
-		return {
-			query: '',
-		};
-	},
 	methods: {
+		filterJobs(id) {
+			this.setCategory(id || '');
+		},
+		...mapMutations(['setCategory']),
 		...mapActions(['fetchJobsList']),
-		...mapMutations(['updateQuery']),
 	},
 	computed: {
-		...mapState(['jobs']),
+		...mapState(['category']),
 	},
 	watch: {
-		query() {
-			this.updateQuery(this.query);
+		category() {
 			this.fetchJobsList();
 		},
 	},
-	mounted() {
-		// this.fetchJobsList();
-	},
+	mounted() {},
 };
 </script>
 

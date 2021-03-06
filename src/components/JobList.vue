@@ -1,21 +1,34 @@
 <template>
-	<div class="jobs-container">
-		<template v-for="i in jobs" :key="i">
-			<job :title="i" />
+	<div class="jobs-container" v-if="jobs.length">
+		<template v-for="job in jobs" :key="job.id">
+			<job :job="job" />
 		</template>
 	</div>
 </template>
 
 <script>
 import Job from './Job.vue';
+import { mapState, mapActions } from 'vuex';
 export default {
+	name: 'JobList',
 	components: { Job },
 	data() {
 		return {
-			jobs: ['senakis bazari', 'potis bordeli'],
+			loading: false,
 		};
 	},
-	name: 'JobList',
+	methods: {
+		...mapActions(['loadJobs']),
+	},
+	computed: {
+		...mapState(['jobs']),
+	},
+	mounted() {
+		this.loading = true;
+		this.loadJobs().then(() => {
+			this.loading = false;
+		});
+	},
 };
 </script>
 

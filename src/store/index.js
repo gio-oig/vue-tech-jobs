@@ -1,8 +1,8 @@
 import { createStore } from 'vuex';
 import axios from 'axios';
 import filter from './filter';
-import urls from '../api/api';
 import user from '../api/user';
+import Job from '../api/Job';
 import router from '../router/index';
 const store = createStore({
 	modules: {
@@ -12,8 +12,7 @@ const store = createStore({
 		return {
 			count: 0,
 			user: '',
-			api: 'http://127.0.0.1:8000/api/search/jobs',
-			fieldId: '',
+			category: '',
 			query: '',
 			jobs: [],
 		};
@@ -22,10 +21,13 @@ const store = createStore({
 		increment(state) {
 			state.count++;
 		},
-		changeJobsList(state, newData) {
-			state.jobs = newData;
+		setJobs(state, jobList) {
+			state.jobs = jobList;
 		},
-		updateQuery(state, newState) {
+		setCategory(state, category) {
+			state.category = category;
+		},
+		setQuery(state, newState) {
 			state.query = newState;
 		},
 		setUser(state, payload) {
@@ -35,9 +37,15 @@ const store = createStore({
 	actions: {
 		fetchJobsList({ commit, state }) {
 			axios
-				.get(`${urls.api}?query=${state.query}&fieldId=${state.fieldId}`)
+				.get(
+					`http://127.0.0.1:8000/api/search/jobs?query=${state.query}&category=${state.category}`
+				)
 				.then((res) => {
-					commit('changeJobsList', res.data);
+					console.log(res);
+					commit('setJobs', res.data);
+				})
+				.catch((err) => {
+					console.log(err);
 				});
 		},
 		loginUser({ commit }, form) {
@@ -57,6 +65,11 @@ const store = createStore({
 			user.logout().then(() => {
 				commit('setUser', null);
 				router.push({ name: 'login' });
+			});
+		},
+		loadJobs({ commit }) {
+			Job.loadJobs().then((res) => {
+				commit('setJobs', res.data);
 			});
 		},
 	},

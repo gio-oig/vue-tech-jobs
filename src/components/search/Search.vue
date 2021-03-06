@@ -4,7 +4,11 @@
 			<div class="icon-container">
 				<search-svg />
 			</div>
-			<input type="text" placeholder="Find your job" />
+			<input
+				type="text"
+				placeholder="Find your job"
+				@input="handleInputSearch($event.target.value)"
+			/>
 		</div>
 		<div class="search-gap"></div>
 		<div class="filter-container">
@@ -18,16 +22,28 @@
 <script>
 import searchSvg from '@/components/svgs/searchSvg.vue';
 import FilterDropdown from './FilterDropdown.vue';
+import { mapMutations, mapState, mapActions } from 'vuex';
+
 export default {
 	components: { searchSvg, FilterDropdown },
 	methods: {
+		handleInputSearch(input) {
+			this.setQuery(input);
+		},
 		filter(name) {
 			console.log(name);
 		},
+		...mapMutations(['setQuery']),
+		...mapActions(['fetchJobsList']),
 	},
-	mounted() {
-		// this.$router.replace({ query: { plane: 'private' } });
-		// console.log(this.$route);
+	computed: {
+		...mapState(['query']),
+	},
+	watch: {
+		query() {
+			this.fetchJobsList();
+			this.$router.replace({ query: { query: this.query } });
+		},
 	},
 };
 </script>
@@ -93,6 +109,9 @@ export default {
 		width: 90%;
 		justify-content: space-between;
 		flex-wrap: wrap;
+	}
+	.search-box input {
+		width: 100%;
 	}
 }
 

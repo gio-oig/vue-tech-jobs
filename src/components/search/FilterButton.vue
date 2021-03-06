@@ -12,12 +12,15 @@
 export default {
 	props: {
 		txt: String,
+		id: String,
 	},
+	emits: ['handleCLick'],
 	data() {
 		return {};
 	},
 	methods: {
 		handdleClick(e) {
+			this.$emit('handleCLick', this.id);
 			const btns = document.querySelectorAll('.filter-button');
 			btns.forEach((btn) => {
 				btn.classList.remove('active');

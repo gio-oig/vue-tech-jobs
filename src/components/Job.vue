@@ -6,26 +6,29 @@
 					<img src="../assets/company.png" alt="" />
 				</div>
 				<div class="job-details">
-					<div class="job-title">{{ title }}</div>
-					<div class="company-name">Blocshop</div>
+					<div class="job-title">
+						<router-link :to="{ name: 'job', params: { slug: job.slug } }">
+							{{ job.title }}
+						</router-link>
+					</div>
+					<div class="company-name">{{ job.company.name }}</div>
 				</div>
 			</div>
 
 			<div class="job-description">
 				<div class="hashtags">
-					<div class="hashtag">#junior</div>
-					<div class="hashtag">#remote</div>
-					<div class="hashtag">#PHP</div>
-					<div class="hashtag">#Laravel</div>
+					<div class="hashtag" v-for="tag in job.tags" :key="tag.id">
+						#{{ tag.name }}
+					</div>
 				</div>
 				<div class="add-date">
 					<div class="date-dot"></div>
-					<h1>Added 3 Hours ago</h1>
+					<h1>Added {{ formatDate(job.created_at) }} Days ago</h1>
 				</div>
 			</div>
 
 			<div class="job-buttons">
-				<button class="salary-btn">₾ Salary</button>
+				<button class="salary-btn">{{ job.salary + 'ლ' || 'No Data' }}</button>
 				<button class="details-btn">Details</button>
 			</div>
 		</div>
@@ -35,11 +38,17 @@
 <script>
 export default {
 	name: 'Job',
-	props: ['title'],
+	props: ['job'],
+
+	methods: {
+		formatDate(date) {
+			return new Date().getUTCDate() - new Date(date).getUTCDate();
+		},
+	},
 };
 </script>
 
-<style>
+<style scoped>
 .job-container {
 	margin: 0.7rem 0;
 }
