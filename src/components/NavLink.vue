@@ -1,5 +1,5 @@
 <template>
-	<a href="#" class="nav-link">
+	<router-link :to="to" class="nav-link">
 		<div class="menu-icon-container" :style="{ backgroundColor: background }">
 			<div class="menu-icon-wrapper">
 				<div>
@@ -8,7 +8,7 @@
 			</div>
 		</div>
 		<div>{{ name }}</div>
-	</a>
+	</router-link>
 </template>
 
 <script>
@@ -16,6 +16,7 @@ export default {
 	props: {
 		name: String,
 		background: String,
+		to: Object,
 	},
 	name: 'NavLink',
 };

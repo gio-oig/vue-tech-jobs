@@ -1,8 +1,6 @@
 <template>
 	<div class="jobs-container" v-if="jobs.length">
-		<template v-for="job in jobs" :key="job.id">
-			<job :job="job" />
-		</template>
+		<job v-for="job in jobs" :job="job" :key="job.id" />
 	</div>
 </template>
 
@@ -22,6 +20,11 @@ export default {
 	},
 	computed: {
 		...mapState(['jobs']),
+	},
+	watch: {
+		jobs() {
+			console.log(this.jobs);
+		},
 	},
 	mounted() {
 		this.loading = true;

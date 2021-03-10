@@ -12,8 +12,9 @@ const store = createStore({
 		return {
 			count: 0,
 			user: '',
-			category: '',
 			query: '',
+			category: '',
+			level: '',
 			jobs: [],
 		};
 	},
@@ -30,6 +31,9 @@ const store = createStore({
 		setQuery(state, newState) {
 			state.query = newState;
 		},
+		setLevel(state, level) {
+			state.level = level;
+		},
 		setUser(state, payload) {
 			state.user = payload;
 		},
@@ -38,7 +42,7 @@ const store = createStore({
 		fetchJobsList({ commit, state }) {
 			axios
 				.get(
-					`http://127.0.0.1:8000/api/search/jobs?query=${state.query}&category=${state.category}`
+					`http://127.0.0.1:8000/api/search/jobs?query=${state.query}&category=${state.category}&level=${state.level}`
 				)
 				.then((res) => {
 					console.log(res);

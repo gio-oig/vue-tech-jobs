@@ -1,6 +1,6 @@
 <template>
 	<form>
-		<h1 class="title">Find A Talent</h1>
+		<h1 class="title">{{ $t('title.main') }}</h1>
 		<div class="filter-btn-container">
 			<filter-button txt="All" @handleCLick="filterJobs" />
 			<filter-button txt="Development" id="1" @handleCLick="filterJobs" />
@@ -36,7 +36,6 @@ export default {
 			this.fetchJobsList();
 		},
 	},
-	mounted() {},
 };
 </script>
 

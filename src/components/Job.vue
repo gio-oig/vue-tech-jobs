@@ -29,7 +29,12 @@
 
 			<div class="job-buttons">
 				<button class="salary-btn">{{ job.salary + 'ლ' || 'No Data' }}</button>
-				<button class="details-btn">Details</button>
+				<button
+					class="details-btn"
+					@click="$router.push({ name: 'job', params: { slug: job.slug } })"
+				>
+					Details
+				</button>
 			</div>
 		</div>
 	</div>
@@ -138,19 +143,23 @@ export default {
 }
 
 .job-buttons .salary-btn {
-	font-size: 15px;
-	background: #eaeaef;
-	border-radius: 10px;
-	border: none;
-	outline: none;
-	color: #171725;
-	box-shadow: 0px 0px 0px 2px #fafafb;
 	height: 48px;
 	width: 100px;
+
+	border: none;
+	border-radius: 10px;
+
+	font-size: 15px;
+	color: #171725;
+	background: #eaeaef;
+	box-shadow: 0px 0px 0px 2px #fafafb;
+
+	cursor: pointer;
+	outline: none;
 	/* font-family: 'markpro'; */
 }
 .job-buttons .details-btn {
-	font-size: 15px;
+	margin-left: 15px;
 	background: #7b7ce6;
 	border-radius: 10px;
 	border: none;
@@ -160,7 +169,8 @@ export default {
 	box-shadow: 0px 0px 0px 2px #fafafb;
 	height: 48px;
 	width: 100px;
-	margin-left: 15px;
+	font-size: 15px;
+	cursor: pointer;
 	/* font-family: 'markpro'; */
 }
 
@@ -176,7 +186,8 @@ export default {
 	.job-buttons {
 		width: 100%;
 	}
-	.job-buttons button {
+	.details-btn,
+	.salary-btn {
 		flex: 1;
 	}
 }

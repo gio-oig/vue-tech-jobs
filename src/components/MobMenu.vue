@@ -1,7 +1,9 @@
 <template>
 	<div class="mob-menu" :class="{ active: isActive }">
 		<a href="#"> <jobs-svg /> ვაკანსიები </a>
-		<a href="#"> <companies-svg /> კომპანიები </a>
+		<router-link :to="{ name: 'companies' }" @click="$emit('close')"
+			><companies-svg /> კომპანიები</router-link
+		>
 		<a v-if="user" href="#">
 			პროფილი
 		</a>
@@ -53,7 +55,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .mob-menu {
 	position: absolute;
 	display: none;
@@ -72,7 +74,8 @@ export default {
 .mob-menu a {
 	padding: 1rem 1.2rem;
 	/* background: rgb(0 0 0 / 5%); */
-	display: block;
+	display: flex;
+	align-items: center;
 	text-decoration: none;
 	font-size: 18px;
 	border-top: 1px solid #dcdcdc;

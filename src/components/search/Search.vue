@@ -12,7 +12,11 @@
 		</div>
 		<div class="search-gap"></div>
 		<div class="filter-container">
-			<filter-dropdown title="Seniority Level:" @filter="filter" />
+			<filter-dropdown
+				title="Seniority Level:"
+				:current="currentLevel"
+				@filter="filterByLevel"
+			/>
 			<div class="search-gap"></div>
 			<filter-dropdown title="Seniority Level:" />
 		</div>
@@ -26,23 +30,41 @@ import { mapMutations, mapState, mapActions } from 'vuex';
 
 export default {
 	components: { searchSvg, FilterDropdown },
+	data() {
+		return {
+			currentLevel: 'All',
+		};
+	},
 	methods: {
 		handleInputSearch(input) {
 			this.setQuery(input);
 		},
-		filter(name) {
-			console.log(name);
+		filterByLevel(level) {
+			if (level === '') {
+				this.currentLevel = 'All';
+			} else {
+				this.currentLevel = level.slice(0, 1).toUpperCase() + level.slice(1);
+			}
+			this.setLevel(level);
 		},
-		...mapMutations(['setQuery']),
+		...mapMutations(['setQuery', 'setLevel']),
 		...mapActions(['fetchJobsList']),
 	},
 	computed: {
-		...mapState(['query']),
+		...mapState(['query', 'level']),
 	},
 	watch: {
 		query() {
 			this.fetchJobsList();
-			this.$router.replace({ query: { query: this.query } });
+			this.$router.replace({
+				query: { ...this.$route.query, query: this.query },
+			});
+		},
+		level() {
+			this.fetchJobsList();
+			this.$router.replace({
+				query: { ...this.$route.query, level: this.level || 'All' },
+			});
 		},
 	},
 };

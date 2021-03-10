@@ -4,7 +4,7 @@
 			<div class="label-container">
 				<span>{{ title }}</span>
 				<div class="value-laceholder">
-					All
+					{{ current }}
 				</div>
 			</div>
 			<dropdown-svg />
@@ -12,13 +12,12 @@
 		<div class="dropdown-placeholder">
 			<div class="dropdown-container" :class="{ active: isActive }">
 				<ul class="">
-					<li><div>All</div></li>
-					<li><div @click="filterEvent('Intern')">Intern</div></li>
-					<li><div>Junior</div></li>
-					<li><div>Middle</div></li>
-					<li><div>Senior</div></li>
-					<li><div>Team Lead</div></li>
-					<li><div>Head</div></li>
+					<li><div @click="filterEvent('')">All</div></li>
+					<li><div @click="filterEvent('intern')">Intern</div></li>
+					<li><div @click="filterEvent('junior')">Junior</div></li>
+					<li><div @click="filterEvent('middle')">Middle</div></li>
+					<li><div @click="filterEvent('senior')">Senior</div></li>
+					<li><div @click="filterEvent('teamLead')">Team Lead</div></li>
 				</ul>
 			</div>
 		</div>
@@ -32,6 +31,7 @@ export default {
 	components: { DropdownSvg },
 	props: {
 		title: String,
+		current: String,
 	},
 	data() {
 		return {
@@ -43,6 +43,7 @@ export default {
 			this.isActive = !this.isActive;
 		},
 		filterEvent(name) {
+			this.toggleDropdown();
 			this.$emit('filter', name);
 		},
 	},

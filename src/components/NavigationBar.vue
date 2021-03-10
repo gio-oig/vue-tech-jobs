@@ -1,18 +1,22 @@
 <template>
 	<header>
-		<router-link to="/" class="logo">Main</router-link>
+		<router-link to="/" class="logo">DevJob</router-link>
 		<mob-menu
 			:isActive="mobMenuDropdown"
 			@logout="logoutUser()"
 			@close="toggleMobDropDown()"
 		/>
 		<nav>
-			<nav-link name="Jobs" background="#EDE3FF">
+			<nav-link :to="{ name: 'jobs' }" name="Jobs" background="#EDE3FF">
 				<template #icon>
 					<jobs-svg />
 				</template>
 			</nav-link>
-			<nav-link name="Companies" background="#D5F7FF">
+			<nav-link
+				:to="{ name: 'companies' }"
+				name="Companies"
+				background="#D5F7FF"
+			>
 				<template #icon>
 					<companies-svg fill="rgb(49, 170, 225)" />
 				</template>
@@ -56,8 +60,8 @@
 			<dropdown :isActive="langDropdown">
 				<template #default>
 					<ul>
-						<li>English</li>
-						<li>ქართული</li>
+						<li @click="changeLanguage('en')">English</li>
+						<li @click="changeLanguage('ge')">ქართული</li>
 					</ul>
 				</template>
 			</dropdown>
@@ -81,6 +85,7 @@ import JobsSvg from './svgs/JobsSvg.vue';
 import ProfileSvg from './svgs/ProfileSvg.vue';
 import { mapState, mapActions } from 'vuex';
 import CustomButton from './shared/CustomButton';
+// import { useI18n } from 'vue-i18n';
 // import user from '../api/user';
 export default {
 	components: {
@@ -95,6 +100,10 @@ export default {
 		MobMenu,
 		CustomButton,
 	},
+	// setup() {
+	// 	const { t, locale } = useI18n();
+	// 	return { t, locale };
+	// },
 	data() {
 		return {
 			mobMenuDropdown: false,
@@ -114,6 +123,9 @@ export default {
 		},
 		logout() {
 			this.logoutUser();
+		},
+		changeLanguage(lang) {
+			this.$i18n.locale = lang;
 		},
 		...mapActions(['logoutUser']),
 	},
@@ -202,6 +214,11 @@ nav {
 	background: none;
 	border: none;
 	outline: none;
+}
+
+.lang-container li {
+	padding: 1rem;
+	cursor: pointer;
 }
 
 @media (max-width: 1000px) {

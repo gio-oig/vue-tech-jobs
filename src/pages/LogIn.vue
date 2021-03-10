@@ -1,6 +1,6 @@
 <template>
 	<div class="mob-margin">
-		<h1>Register</h1>
+		<h1>Log In</h1>
 		<form @submit.prevent="login()">
 			<div>
 				<div class="form-group">
@@ -53,19 +53,6 @@ export default {
 						this.errors = { ...err.response.data.errors };
 					}
 				});
-			// user
-			// 	.login(this.form)
-			// 	.then((res) => {
-			// 		localStorage.setItem('Auth', 'true');
-			// 		this.setUser(res.data.user);
-			// 		console.log(res);
-			// 		this.$router.push({ name: 'home' });
-			// 	})
-			// 	.catch((error) => {
-			// 		if (error.response.status === 422) {
-			// 			this.errors = { ...error.response.data.errors };
-			// 		}
-			// 	});
 		},
 	},
 };

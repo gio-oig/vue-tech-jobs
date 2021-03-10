@@ -1,11 +1,9 @@
 <template>
 	<svg
-		class="fill-0-2-50"
-		style="fill:#7529FB"
 		width="24"
 		height="24"
 		viewBox="0 0 24 24"
-		fill="none"
+		:fill="color"
 		xmlns="http://www.w3.org/2000/svg"
 	>
 		<path
@@ -19,6 +17,14 @@
 <script>
 export default {
 	name: 'JobsSvg',
+	props: {
+		fill: String,
+	},
+	data() {
+		return {
+			color: this.fill ? this.fill : '#171725',
+		};
+	},
 };
 </script>
 

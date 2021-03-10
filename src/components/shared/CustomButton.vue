@@ -1,5 +1,10 @@
 <template>
-	<button v-if="noLink" class="btn-link" :class="{ invert: invert }">
+	<button
+		v-if="noLink"
+		class="btn-link"
+		:class="{ invert: invert }"
+		:style="{ width: width }"
+	>
 		{{ txt }}
 	</button>
 	<router-link
@@ -19,8 +24,8 @@ export default {
 		path: String,
 		txt: String,
 		invert: Boolean,
+		width: String,
 	},
-	components: {},
 };
 </script>
 
@@ -28,6 +33,8 @@ export default {
 .btn-link {
 	padding: 1rem;
 	margin-right: 8px;
+	display: inline-block;
+	text-align: center;
 
 	font-size: 1.8rem;
 	font-weight: 500;

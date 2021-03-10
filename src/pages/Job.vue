@@ -1,29 +1,27 @@
 <template>
-	<div class="job">
+	<div class="job" v-if="job">
 		<div class="job__header">
 			<div class="img-wrapper">
 				<img src="../assets/company.png" alt="company logo" />
 			</div>
 			<div class="job__header__info">
-				<div class="company-name">company name</div>
-				<div class="job-name">job name</div>
+				<div class="company-name">{{ job.company.name }}</div>
+				<div class="job-title">{{ job.title }}</div>
 				<div class="tag-group">
 					<div>Tags</div>
 					<div class="tags">
-						<div class="tag">#middle</div>
-						<div class="tag">#remote</div>
-						<div class="tag">#React</div>
-						<div class="tag">#Git</div>
-						<div class="tag">#HTML5</div>
+						<div v-for="tag in job.tags" :key="tag.id" class="tag">
+							#{{ tag.name }}
+						</div>
 					</div>
 				</div>
 			</div>
 			<div class="job_general_info">
 				<div class="grid">
-					<div class="entry"><span>Filed:</span> Development</div>
-					<div class="entry"><span>Location:</span> Tbilisi</div>
-					<div class="entry"><span>SeniorityLevel:</span> Middle</div>
-					<div class="entry"><span>Salary:</span> 4000ლ</div>
+					<div class="entry"><span>Filed:</span> {{ job.category.name }}</div>
+					<div class="entry"><span>Location:</span> {{ job.location }}</div>
+					<div class="entry"><span>SeniorityLevel:</span> {{ job.level }}</div>
+					<div class="entry"><span>Salary:</span> {{ job.salary }}ლ</div>
 				</div>
 			</div>
 		</div>
@@ -32,18 +30,18 @@
 </template>
 
 <script>
-import User from '../api/Job';
+import Job from '../api/Job';
 export default {
 	name: 'Job',
 	data() {
 		return {
-			job: {},
+			job: null,
 		};
 	},
 	mounted() {
 		const slug = this.$route.params.slug;
 		console.log(slug);
-		User.loadJob(slug)
+		Job.loadJob(slug)
 			.then((result) => {
 				this.job = result.data;
 				console.log(result);
@@ -85,7 +83,7 @@ export default {
 	font-size: 1.6rem;
 }
 
-.job-name {
+.job-title {
 	font-size: 2.4rem;
 	font-weight: 700;
 	margin-bottom: 1rem;

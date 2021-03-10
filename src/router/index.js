@@ -1,8 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Home from '../pages/Home.vue';
-import Register from '../pages/Register.vue';
-import LogIn from '../pages/LogIn.vue';
+import Home from '@/pages/Home.vue';
+import Register from '@/pages/Register.vue';
+import LogIn from '@/pages/LogIn.vue';
 import Job from '@/pages/Job.vue';
+import Companies from '@/pages/Companies.vue';
+import CompanyJobs from '@/pages/CompanyJobs.vue';
 
 const routes = [
 	{
@@ -27,6 +29,21 @@ const routes = [
 		path: '/job/:slug',
 		component: Job,
 		name: 'job',
+	},
+	{
+		path: '/jobs',
+		component: Companies,
+		name: 'jobs',
+	},
+	{
+		path: '/companies',
+		component: Companies,
+		name: 'companies',
+	},
+	{
+		path: '/:company/jobs',
+		component: CompanyJobs,
+		name: 'companyJobs',
 	},
 ];
 
