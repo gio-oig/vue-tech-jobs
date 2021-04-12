@@ -13,11 +13,14 @@
 			<div class="dropdown-container" :class="{ active: isActive }">
 				<ul class="">
 					<li><div @click="filterEvent('')">All</div></li>
-					<li><div @click="filterEvent('intern')">Intern</div></li>
-					<li><div @click="filterEvent('junior')">Junior</div></li>
-					<li><div @click="filterEvent('middle')">Middle</div></li>
-					<li><div @click="filterEvent('senior')">Senior</div></li>
-					<li><div @click="filterEvent('teamLead')">Team Lead</div></li>
+					<li v-for="(option, index) in options" :key="index">
+						<div @click="filterEvent(option)">
+							{{ upperCaseFirstChar(option) }}
+						</div>
+					</li>
+					<!-- example -->
+					<!-- <li><div @click="filterEvent('junior')">Junior</div></li>
+					<li><div @click="filterEvent('teamLead')">Team Lead</div></li> -->
 				</ul>
 			</div>
 		</div>
@@ -32,7 +35,9 @@ export default {
 	props: {
 		title: String,
 		current: String,
+		options: Array,
 	},
+	emits: ['filter'],
 	data() {
 		return {
 			isActive: false,
@@ -45,6 +50,23 @@ export default {
 		filterEvent(name) {
 			this.toggleDropdown();
 			this.$emit('filter', name);
+		},
+		upperCaseFirstChar(option) {
+			let formatedOption = '';
+			// check if string is camaleCase
+			if (/(?=[A-Z])/.test(option)) {
+				// if camalCase split and join with sapce
+				formatedOption = option.split(/(?=[A-Z])/).join(' ');
+			}
+
+			if (formatedOption) {
+				return this.upper(formatedOption);
+			} else {
+				return this.upper(option);
+			}
+		},
+		upper(str) {
+			return str.slice(0, 1).toUpperCase() + str.slice(1);
 		},
 	},
 };

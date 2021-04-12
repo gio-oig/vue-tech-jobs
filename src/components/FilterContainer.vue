@@ -2,7 +2,7 @@
 	<form>
 		<h1 class="title">{{ $t('title.main') }}</h1>
 		<div class="filter-btn-container">
-			<filter-button txt="All" @handleCLick="filterJobs" />
+			<filter-button :txt="$t('category.all')" @handleCLick="filterJobs" />
 			<filter-button txt="Development" id="1" @handleCLick="filterJobs" />
 			<filter-button txt="Designe" id="2" @handleCLick="filterJobs" />
 			<filter-button txt="Marketing" id="3" @handleCLick="filterJobs" />

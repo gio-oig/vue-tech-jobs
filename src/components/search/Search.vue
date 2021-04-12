@@ -15,10 +15,16 @@
 			<filter-dropdown
 				title="Seniority Level:"
 				:current="currentLevel"
+				:options="levels"
 				@filter="filterByLevel"
 			/>
 			<div class="search-gap"></div>
-			<filter-dropdown title="Seniority Level:" />
+			<filter-dropdown
+				title="Location:"
+				:current="curentLocation"
+				:options="locations"
+				@filter="filterByLocation"
+			/>
 		</div>
 	</div>
 </template>
@@ -33,6 +39,9 @@ export default {
 	data() {
 		return {
 			currentLevel: 'All',
+			levels: ['junior', 'middle', 'senior', 'teamLead'],
+			curentLocation: 'All',
+			locations: ['remote', 'tbilisi', 'kutaisi', 'batumi'],
 		};
 	},
 	methods: {
@@ -47,11 +56,20 @@ export default {
 			}
 			this.setLevel(level);
 		},
-		...mapMutations(['setQuery', 'setLevel']),
+		filterByLocation(location) {
+			if (location === '') {
+				this.curentLocation = 'All';
+			} else {
+				this.curentLocation =
+					location.slice(0, 1).toUpperCase() + location.slice(1);
+			}
+			this.setLocation(location);
+		},
+		...mapMutations(['setQuery', 'setLevel', 'setLocation']),
 		...mapActions(['fetchJobsList']),
 	},
 	computed: {
-		...mapState(['query', 'level']),
+		...mapState(['query', 'level', 'jobLocation']),
 	},
 	watch: {
 		query() {
@@ -64,6 +82,13 @@ export default {
 			this.fetchJobsList();
 			this.$router.replace({
 				query: { ...this.$route.query, level: this.level || 'All' },
+			});
+		},
+		jobLocation() {
+			console.log(this.jobLocation);
+			this.fetchJobsList();
+			this.$router.replace({
+				query: { ...this.$route.query, location: this.location || 'All' },
 			});
 		},
 	},

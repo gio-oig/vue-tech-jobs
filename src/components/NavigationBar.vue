@@ -14,7 +14,7 @@
 			</nav-link>
 			<nav-link
 				:to="{ name: 'companies' }"
-				name="Companies"
+				:name="$t('nav.company')"
 				background="#D5F7FF"
 			>
 				<template #icon>
@@ -49,12 +49,16 @@
 			</dropdown>
 		</div>
 		<div v-if="!user" class="auth">
-			<custom-button path="/login" txt="login" :invert="false" />
-			<custom-button path="/register" txt="register" :invert="true" />
+			<custom-button path="/login" :txt="$t('nav.login')" :invert="false" />
+			<custom-button
+				path="/register"
+				:txt="$t('nav.register')"
+				:invert="true"
+			/>
 		</div>
 		<div class="lang-container">
 			<button class="menu-lang-container" @click="toggleLangDropdown()">
-				<span>EN</span>
+				<span>{{ $t('nav.lang') }}</span>
 				<dropdown-svg />
 			</button>
 			<dropdown :isActive="langDropdown">
@@ -85,8 +89,7 @@ import JobsSvg from './svgs/JobsSvg.vue';
 import ProfileSvg from './svgs/ProfileSvg.vue';
 import { mapState, mapActions } from 'vuex';
 import CustomButton from './shared/CustomButton';
-// import { useI18n } from 'vue-i18n';
-// import user from '../api/user';
+
 export default {
 	components: {
 		JobsSvg,
@@ -100,10 +103,6 @@ export default {
 		MobMenu,
 		CustomButton,
 	},
-	// setup() {
-	// 	const { t, locale } = useI18n();
-	// 	return { t, locale };
-	// },
 	data() {
 		return {
 			mobMenuDropdown: false,

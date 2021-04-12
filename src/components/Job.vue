@@ -3,7 +3,8 @@
 		<div class="job-item">
 			<div class="job-start">
 				<div class="company-logo">
-					<img src="../assets/company.png" alt="" />
+					<img v-if="job.company.image" :src="job.company.image" alt="" />
+					<img v-if="!job.company.image" src="@/assets/example.png" alt="" />
 				</div>
 				<div class="job-details">
 					<div class="job-title">
@@ -49,6 +50,9 @@ export default {
 		formatDate(date) {
 			return new Date().getUTCDate() - new Date(date).getUTCDate();
 		},
+	},
+	mounted() {
+		console.log(this.job);
 	},
 };
 </script>

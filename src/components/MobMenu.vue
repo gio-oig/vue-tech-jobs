@@ -2,7 +2,7 @@
 	<div class="mob-menu" :class="{ active: isActive }">
 		<a href="#"> <jobs-svg /> ვაკანსიები </a>
 		<router-link :to="{ name: 'companies' }" @click="$emit('close')"
-			><companies-svg /> კომპანიები</router-link
+			><companies-svg /> {{ $t('nav.company') }}</router-link
 		>
 		<a v-if="user" href="#">
 			პროფილი
@@ -11,10 +11,10 @@
 			გასვლა
 		</a>
 		<a v-if="!user" href="#" @click="routeToRegistration()">
-			დარეგისტრირება
+			{{ $t('nav.register') }}
 		</a>
 		<a v-if="!user" href="#" @click="routeToLogin()">
-			შესვლა
+			{{ $t('nav.login') }}
 		</a>
 	</div>
 </template>

@@ -15,6 +15,7 @@ const store = createStore({
 			query: '',
 			category: '',
 			level: '',
+			jobLocation: '',
 			jobs: [],
 		};
 	},
@@ -34,6 +35,9 @@ const store = createStore({
 		setLevel(state, level) {
 			state.level = level;
 		},
+		setLocation(state, location) {
+			state.jobLocation = location;
+		},
 		setUser(state, payload) {
 			state.user = payload;
 		},
@@ -42,7 +46,7 @@ const store = createStore({
 		fetchJobsList({ commit, state }) {
 			axios
 				.get(
-					`http://127.0.0.1:8000/api/search/jobs?query=${state.query}&category=${state.category}&level=${state.level}`
+					`http://127.0.0.1:8000/api/search/jobs?query=${state.query}&category=${state.category}&level=${state.level}&location=${state.jobLocation}`
 				)
 				.then((res) => {
 					console.log(res);

@@ -1,7 +1,7 @@
 <template>
 	<div class="company">
 		<div class="company__header">
-			<img src="../assets/company.png" alt="" />
+			<img src="../assets/example.png" alt="" />
 			<div>
 				<div class="name title-bold">{{ company.name }}</div>
 				<div class="secondary-text">{{ company.filed }}</div>

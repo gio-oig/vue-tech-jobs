@@ -45,6 +45,11 @@ const routes = [
 		component: CompanyJobs,
 		name: 'companyJobs',
 	},
+	{
+		path: '/admin',
+		component: CompanyJobs,
+		name: 'companyJobs',
+	},
 ];
 
 const router = createRouter({

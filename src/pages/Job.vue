@@ -2,7 +2,12 @@
 	<div class="job" v-if="job">
 		<div class="job__header">
 			<div class="img-wrapper">
-				<img src="../assets/company.png" alt="company logo" />
+				<img
+					v-if="job.company.image"
+					:src="'http://127.0.0.1:8000/images/1612601480vue.jpeg'"
+					alt=""
+				/>
+				<img v-if="!job.company.image" src="@/assets/example.png" alt="" />
 			</div>
 			<div class="job__header__info">
 				<div class="company-name">{{ job.company.name }}</div>
