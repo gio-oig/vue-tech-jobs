@@ -1,6 +1,4 @@
-# vue-jobs
-
-# main page
+# home page
 ![devJob](https://user-images.githubusercontent.com/53079690/114393023-9e72c780-9baa-11eb-85d1-3968e2d864d0.jpeg)
 
 # login page
